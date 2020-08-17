@@ -4,12 +4,14 @@
 # pipeline
 - create training set
   - run `label\concat_vids.py root_dir` to concatenate all vids to be included in training set
+  - use jupyter notebook `initialize_training_set.ipynb` to initialize a to-be-labeled training set from the concatenated video
+  - label by running `python label_data.py path_to_training_set path_to_skeleton`
 
 
 # todo
 - stim tracking
   - [X] concat all vids for training set
-  - [ ] make skeleton
+  - [X] make skeleton
   - [ ] label training set
   - [ ] train initial network
   - [ ] add bad frames and retrain

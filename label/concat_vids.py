@@ -1,6 +1,6 @@
 """
 concatenates all videos to be included in training set
-root_dir (command line argument) contains ones dir per session, each containing >=1 video
+root_dir (command line argument) contains one dir per session, each containing >=1 video
 in each session dir, all vids are concatenated into concatenated.avi
 all these vids are then concatenated in root_dir\concatenated.avi
 """
