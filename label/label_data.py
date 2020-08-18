@@ -9,7 +9,7 @@ print(f'skeleton: {skeleton}')
 app = Annotator(datapath=dataset,
                 dataset='images',
                 skeleton=skeleton,
-                shuffle_colors=False,
+                shuffle_colors=True,
                 text_scale=0.2)
 
 app.run()

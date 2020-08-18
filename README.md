@@ -12,10 +12,13 @@
 - stim tracking
   - [X] concat all vids for training set
   - [X] make skeleton
-  - [ ] label training set
-  - [ ] train initial network
+  - [X] label training set
+  - [X] train initial network
+  - [ ] evaluation
+    - [ ] make evaluation script
+    - [ ] make evaluation vids
   - [ ] add bad frames and retrain
-  - [ ] make matlab wrappers for david analysis
+  - [ ] fix skeleton bug
 
 - tank tracking
   - [ ] install anipose, make board
