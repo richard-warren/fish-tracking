@@ -11,10 +11,11 @@ import tqdm
 import sys
 import cv2
 import os
+import ipdb
 
 # parse input arguments
 video, skeleton_name = sys.argv[1:]
-fps = 30
+fps = 300
 
 # inits
 video_output = os.path.splitext(video)[0] + '_tracking.avi'
@@ -28,8 +29,9 @@ cmap = plt.cm.hsv(np.linspace(0, 1, len(graph)))[:, :3][:, ::-1] * 255
 reader = VideoReader(video, batch_size=1)
 writer = VideoWriter(video_output, reader[0].shape[1:3], 'MP4V', fps)
 
-for frame, keypoints in tqdm.tqdm(zip(reader, predictions)):
+for frame_num, frame, keypoints in tqdm.tqdm(zip(range(len(reader)), reader, predictions)):
     frame = frame[0].copy()
+    
     # lines
     for idx, node in enumerate(graph):
         if node >= 0:
@@ -40,7 +42,9 @@ for frame, keypoints in tqdm.tqdm(zip(reader, predictions)):
     for idx, keypoint in enumerate(keypoints):
         keypoint = keypoint.astype(int)
         cv2.circle(frame, (keypoint[0], keypoint[1]), 2, tuple(cmap[idx]), -1, lineType=cv2.LINE_AA)
-
+    # frame number
+    frame = cv2.putText(frame, f'frame {frame_num}', (0,round(frame.shape[0]*.95)), cv2.FONT_HERSHEY_SIMPLEX, .5, (255, 255, 255))
+    
     writer.write(frame)
 
 writer.close()

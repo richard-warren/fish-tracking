@@ -12,8 +12,11 @@ vid_folders = [f.path for f in os.scandir(root_dir) if f.is_dir()]
 
 # concat vids in individual folders
 for vid_folder in vid_folders:
+    print(f'concatenating {vid_folder}')
+
     # create .txt list of files to be concatenated
     vid_names = [f.name for f in os.scandir(vid_folder) if f.path.endswith('.avi') and f.is_file()]
+    vid_names = [vid_name for vid_name in vid_names if 'concatenated' not in vid_name]  # don't add concatenated vids
     with open(os.path.join(vid_folder, 'list.txt'), 'w+') as file:
         file.writelines(['file '+v+'\n' for v in vid_names])
 
