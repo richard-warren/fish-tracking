@@ -1,7 +1,9 @@
 # fish_tracking
 3d tracking of mormyrid fish in neuroscience experiments
 
-# pipeline
+# training networks
+- set up configuration
+  - to avoid having to pass around a bunch of command line arguments, several global variables are defined in `config.yaml` and are accessed by some of the batch scripts
 - create training set
   - run `python label\concat_vids.py root_dir` to concatenate all vids to be included in training set
   - use notebook `label\initialize_training_set.ipynb` to initialize a to-be-labeled training set from the concatenated video
@@ -14,9 +16,14 @@
   - create a video showing tracking `python predict\make_tracking_video.py video_name skeleton_name`
      - `video_name_tracking.avi` is generated in the video's directory (assumes `video_name_tracking.csv` exists)
 - expand training set
-  - watch videos generated with `predict\make_tracking_video.py` to identify frames to be added to the training set
-  - use notebook `label\add_frames_to_dataset` to create a new dataset by combining them with an existing dataset
+  - manually
+    - watch videos generated with `predict\make_tracking_video.py` to identify frames to be added to the training set
+    - use notebook `label\add_frames_manually` to create a new dataset by combining them with an existing dataset
+  - automatically
+    - use notebook `label\add_frames_automatically` to identify poorly tracked frames based on confidence levels. creates a new dataset by combining them with an existing dataset.
 
+# evaluating
+- use `predict\analyze_video.py video model_name skeleton_name` to analyze a video from the command line
 
 # todo
 - stim tracking
@@ -30,15 +37,17 @@
     - [X] evaluation vids
   - [X] add corner mirror feature
   - [X] retrain with brightness augmentation // regenerate predictions
-  - [ ] add bad frames and retrain
+  - [X] add bad frames and retrain
     - [X] write vids with frame nums
     - [X] find bad frames
     - [X] add bad frames to training set
     - [X] fix bad frame labels
     - [X] retrain
-  - [ ] *make batch scripts*
+  - [ ] modify batch scripts (one function call per vid to avoid crashing problem)
   
 - tank tracking
+  - [ ] train models
+    - [ ] **make training set**
   - [ ] install anipose, make board
   - [ ] train networks
   - [ ] figure out calibration
