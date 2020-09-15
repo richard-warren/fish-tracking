@@ -1,8 +1,0 @@
-%% crop all the tank vids
-
-% settings
-rootDir = 'Z:\locker\ShareData\Chin_for_Dillon';
-
-
-% get experiment folders
-dirs = dir(rootDir); dirs = dirs([dirs.isdir]); dirs = dirs.name(3:end);

@@ -44,10 +44,13 @@
     - [X] fix bad frame labels
     - [X] retrain
   - [ ] modify batch scripts (one function call per vid to avoid crashing problem)
-  
+
 - tank tracking
   - [ ] train models
-    - [ ] **make training set**
+    - [X] crop vids
+    - [X] test opencv crop speed
+    - [ ] **more aggressive cropping (python)**
+    - [ ] make training set
   - [ ] install anipose, make board
   - [ ] train networks
   - [ ] figure out calibration

@@ -11,7 +11,7 @@ function cropTankVid(vidName, varargin)
 % settings
 s.thresh = 3.0;         % (z scored pixels) difference between frame and background frame for fish detection
 s.avgSamples = 100;     % how many frames to sample when computing background image
-s.buffer = .5;          % (s) time before and after fish appearance to keep
+s.buffer = 1;           % (s) time before and after fish appearance to keep
 s.plotResults = true;   % whether to plot the results
 s.medFiltering = .5;    % (s) median filter the thresholded signal to remove short periods
 s.resolution = .1;      % (s) only sample frames ~ every s.resolution seconds
@@ -33,7 +33,7 @@ bufferSmps = round(s.buffer * vid.FrameRate / skipFrames);
 fprintf('computing background... ')
 numFrames = vid.NumFrames;
 frames = zeros(s.avgSamples, vid.Height, vid.Width);
-frameNums = floor(linspace(1, numFrames, s.avgSamples));
+frameNums = floor(linspace(1, min(numFrames, round(5*60*vid.FrameRate)), s.avgSamples));  % don't take frames after the first 5 minutes
 for i = 1:length(frameNums); frames(i,:,:) = rgb2gray(read(vid, frameNums(i))); end
 background = double(squeeze(median(frames,1)));
 bgStd = std(background(:));
@@ -44,10 +44,12 @@ fprintf('computing frame diffs... ')
 frameNums = 1:skipFrames:numFrames;
 diffs = nan(1, length(frameNums));
 for i = 1:length(frameNums)
-    bgSub = double(rgb2gray(read(vid, frameNums(i)))) - background;
-    diffs(i) = mean(abs(bgSub(:)));
+    try
+        bgSub = double(rgb2gray(read(vid, frameNums(i)))) - background;
+        diffs(i) = mean(abs(bgSub(:)));
+    catch; end
 end
-diffs = diffs-mean(bgStd) / bgStd;
+diffs = diffs-mean(bgStd) / bgStd;  % !!! this should have parens around subtraction :/
 
 
 % find start and end
