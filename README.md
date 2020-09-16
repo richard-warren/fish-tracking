@@ -49,8 +49,9 @@
   - [ ] train models
     - [X] crop vids
     - [X] test opencv crop speed
-    - [ ] **more aggressive cropping (python)**
-    - [ ] make training set
+    - [X] more aggressive cropping (python)
+    - [X] concat all fish vids within a day
+    - [ ] **make training set**
   - [ ] install anipose, make board
   - [ ] train networks
   - [ ] figure out calibration
