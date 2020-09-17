@@ -51,6 +51,7 @@
     - [X] test opencv crop speed
     - [X] more aggressive cropping (python)
     - [X] concat all fish vids within a day
+      - [ ] **fix problem sessions...**
     - [ ] **make training set**
   - [ ] install anipose, make board
   - [ ] train networks
