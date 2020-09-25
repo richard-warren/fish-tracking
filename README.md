@@ -44,15 +44,17 @@
     - [X] fix bad frame labels
     - [X] retrain
   - [ ] modify batch scripts (one function call per vid to avoid crashing problem)
+  - [ ] retrain with refined tip points?
 
 - tank tracking
+- [ ] finalize bit rate
+- [ ] finalize skeleton
   - [ ] train models
     - [X] crop vids
     - [X] test opencv crop speed
     - [X] more aggressive cropping (python)
     - [X] concat all fish vids within a day
-      - [ ] **fix problem sessions...**
-    - [ ] **make training set**
+    - [X] label and train initial network
   - [ ] install anipose, make board
   - [ ] train networks
   - [ ] figure out calibration
