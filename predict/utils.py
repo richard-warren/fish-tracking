@@ -9,7 +9,7 @@ import os
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 
 
-def analyze_video(video, model, skeleton_name, batch_size=64):
+def analyze_video(video, model, skeleton_name, batch_size=16):
 	"""
 	analyze a video and save results to 'video_tracking.csv' in same directory
 	video: 	  		 full path to video
@@ -18,6 +18,7 @@ def analyze_video(video, model, skeleton_name, batch_size=64):
 	"""
 
 	# predict
+	print(f'analyzing video: {video}')
 	reader = VideoReader(video, batch_size=batch_size, gray=True, frame_size=model.input_shape)
 	predictions = model.predict(reader, verbose=1, workers=1, use_multiprocessing=False)
 	reader.close()
@@ -49,6 +50,7 @@ def make_tracking_video(video, skeleton_name, predictions=None, fps=300, confide
 
 	# inits
 	video_output = os.path.splitext(video)[0] + '_tracking.avi'
+	print(f'making tracking video: {video_output}')
 	if predictions is None:
 		predictions = pd.read_csv(os.path.splitext(video)[0] + '_tracking.csv').to_numpy()[:,1:]
 		predictions = predictions.reshape((-1, int(predictions.shape[1]/3), 3))  # (frane_num X feature_num X (x,y,confidence))
@@ -60,7 +62,6 @@ def make_tracking_video(video, skeleton_name, predictions=None, fps=300, confide
 	reader = VideoReader(video, gray=False, batch_size=1)  # errs when great=True even for gray vids
 	writer = VideoWriter(video_output, (reader[0].shape[2], reader[0].shape[1]), 'XVID', fps)  # 'XVID' works on windows // size is (width, height)
 
-	print(f'writing tracking video: {video_output}')
 	for frame_num, frame, keypoints in tqdm.tqdm(zip(range(len(reader)), reader, predictions)):
 		frame = frame[0].copy()
 

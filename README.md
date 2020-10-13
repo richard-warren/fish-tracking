@@ -43,19 +43,19 @@
     - [X] add bad frames to training set
     - [X] fix bad frame labels
     - [X] retrain
-  - [ ] modify batch scripts (one function call per vid to avoid crashing problem)
+  - [ ] modify batch scripts (one function call per vid to avoid crashing problem... try loading model de novo in analyze_video function to avoid kernel crashing in jupyter?)
   - [ ] retrain with refined tip points?
 
 - tank tracking
-- [ ] finalize bit rate
-- [ ] finalize skeleton
-  - [ ] train models
+- [ ] **finalize bit rate**
+- [X] finalize skeleton
+  - [X] train models
     - [X] crop vids
     - [X] test opencv crop speed
     - [X] more aggressive cropping (python)
     - [X] concat all fish vids within a day
     - [X] label and train initial network
+  - [ ] **refactor evaluation scripts**
   - [ ] install anipose, make board
-  - [ ] train networks
   - [ ] figure out calibration
   - [ ] figure out 3d reconstruction
