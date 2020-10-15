@@ -37,7 +37,7 @@ def analyze_video(video, model, skeleton_name, batch_size=16):
 	return predictions
 
 
-def make_tracking_video(video, skeleton_name, predictions=None, fps=300, confidence_thresh=.1):
+def make_tracking_video(video, skeleton_name, predictions=None, confidence_thresh=.1):
 	"""
 	make video showing tracking for already-tracked video
 	assumes 'video_tracking.csv' exists if predictions not prvided
@@ -59,11 +59,21 @@ def make_tracking_video(video, skeleton_name, predictions=None, fps=300, confide
 	cmap = plt.cm.hsv(np.linspace(0, 1, len(graph)))[:, :3][:, ::-1] * 255
 
 	# make video
-	reader = VideoReader(video, gray=False, batch_size=1)  # errs when great=True even for gray vids
-	writer = VideoWriter(video_output, (reader[0].shape[2], reader[0].shape[1]), 'XVID', fps)  # 'XVID' works on windows // size is (width, height)
+	reader = VideoReader(video, gray=False, batch_size=1, fast_frame_count=True)  # errs when gray=True even for gray vids
+	
+	# get source codec, fps, and frame size
+	def decode_fourcc(cc):
+		return "".join([chr((int(cc) >> 8 * i) & 0xFF) for i in range(4)])
+	codec = decode_fourcc(reader.get(cv2.CAP_PROP_FOURCC))
+	fps = reader.get(cv2.CAP_PROP_FPS)
+	sz = (int(reader.get(3)), int(reader.get(4)))  # width, height
+	
+	writer = VideoWriter(video_output, sz, *codec, fps)  # 'XVID' works on windows
 
-	for frame_num, frame, keypoints in tqdm.tqdm(zip(range(len(reader)), reader, predictions)):
-		frame = frame[0].copy()
+	
+	# for frame_num, frame, keypoints in tqdm.tqdm(zip(range(len(reader)), reader, predictions)):
+	for frame_num, keypoints in tqdm.tqdm(enumerate(predictions)):
+		frame = reader.read().copy()
 
 		# lines
 		for idx, node in enumerate(graph):
@@ -77,6 +87,7 @@ def make_tracking_video(video, skeleton_name, predictions=None, fps=300, confide
 			if keypoint[-1]>confidence_thresh:
 				keypoint = keypoint.astype(int)
 				cv2.circle(frame, (keypoint[0], keypoint[1]), 2, tuple(cmap[idx]), -1, lineType=cv2.LINE_AA)
+		
 		# frame number
 		frame = cv2.putText(frame, f'frame {frame_num}', (0,round(frame.shape[0]*.95)), cv2.FONT_HERSHEY_SIMPLEX, .5, (255, 255, 255))
 
