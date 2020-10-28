@@ -3,6 +3,7 @@ from deepposekit.io import VideoReader, VideoWriter, utils
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import ipdb
 import tqdm
 import cv2
 import os
@@ -67,8 +68,7 @@ def make_tracking_video(video, skeleton_name, predictions=None, confidence_thres
 	codec = decode_fourcc(reader.get(cv2.CAP_PROP_FOURCC))
 	fps = reader.get(cv2.CAP_PROP_FPS)
 	sz = (int(reader.get(3)), int(reader.get(4)))  # width, height
-	
-	writer = VideoWriter(video_output, sz, *codec, fps)  # 'XVID' works on windows
+	writer = VideoWriter(video_output, sz, codec, fps)  # 'XVID' works on windows
 
 	
 	# for frame_num, frame, keypoints in tqdm.tqdm(zip(range(len(reader)), reader, predictions)):
