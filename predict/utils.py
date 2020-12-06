@@ -1,5 +1,6 @@
 from deepposekit.io import DataGenerator, VideoReader, VideoWriter
 from deepposekit.io import VideoReader, VideoWriter, utils
+from deepposekit.models import load_model
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -10,13 +11,16 @@ import os
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 
 
-def analyze_video(video, model, skeleton_name, batch_size=16):
+def analyze_video(video, model_name, skeleton_name, batch_size=16):
 	"""
 	analyze a video and save results to 'video_tracking.csv' in same directory
 	video: 	  		 full path to video
 	model:	  	  	 deepposekit model instance
 	skeleton_name:   full path to skeleton
 	"""
+
+	# load model
+	model = load_model(model_name)
 
 	# predict
 	print(f'analyzing video: {video}')
