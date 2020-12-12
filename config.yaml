@@ -1,13 +1,16 @@
+# location of fish-tracking github directory
+gitdir: 'D:\github\fish-tracking\'
+
 # headfixed stim settings
-stim:
-  model: 'D:\github\fish-tracking\train\models\stim_model.h5'                 # deepposekit model
-  data_dir: 'Z:\C1\chin_for_rick\'                                            # location of videos
+fixed:
+  model:    'D:\github\fish-tracking\train\models\stim_model.h5'              # deepposekit model
+  data_dir: 'Z:\C1\fixed\'                                                    # location of videos
   skeleton: 'D:\github\fish-tracking\label\skeletons\stim_skeleton.csv'       # pose skeleton
-  dataset: 'D:\github\fish-tracking\label\datasets\stim_dataset_2.h5'         # annotation dataset (for training model)
+  dataset:  'D:\github\fish-tracking\label\datasets\stim_dataset_2.h5'        # annotation dataset (for training model)
 
 # freely moving tank settings
-tank:
-  model: 'D:\github\fish-tracking\train\models\tank_model.h5'                 # deepposekit model
-  data_dir: r'Z:\locker\ShareData\Chin_for_Dillon'                            # location of videos
-  skeleton: r'D:\github\fish-tracking\label\skeletons\tank_skeleton.csv'      # pose skeleton
-  dataset: 'D:\github\fish-tracking\label\datasets\tank_dataset_9.h5'         # annotation dataset (for training model)
+free:
+  model:    'D:\github\fish-tracking\train\models\tank_model.h5'              # deepposekit model
+  data_dir: 'Z:\C1\free\vids\'                                                # location of videos
+  skeleton: 'D:\github\fish-tracking\label\skeletons\tank_skeleton.csv'       # pose skeleton
+  dataset:  'D:\github\fish-tracking\label\datasets\tank_dataset_9.h5'        # annotation dataset (for training model)
