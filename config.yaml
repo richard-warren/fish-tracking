@@ -1,7 +1,3 @@
-# location of fish-tracking github directory
-gitdir: 'D:\github\fish-tracking\'
-
-# headfixed stim settings
 fixed:
   model:    'D:\github\fish-tracking\train\models\stim_model.h5'              # deepposekit model
   data_dir: 'Z:\C1\fixed\'                                                    # location of videos
@@ -12,5 +8,5 @@ fixed:
 free:
   model:    'D:\github\fish-tracking\train\models\tank_model.h5'              # deepposekit model
   data_dir: 'Z:\C1\free\vids\'                                                # location of videos
-  skeleton: 'D:\github\fish-tracking\label\skeletons\tank_skeleton.csv'       # pose skeleton
+  skeleton: 'D:\github\fish-tracking\label\skeletons\tank_skeleton_3.csv'     # pose skeleton
   dataset:  'D:\github\fish-tracking\label\datasets\tank_dataset_9.h5'        # annotation dataset (for training model)
