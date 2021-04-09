@@ -19,7 +19,7 @@ jupyter notebook
 ```
 Details on labeling data, training models, and using models for prediction are found below.
 
-**Note:** One important change in rick's modification of the `DeepPoseKit` repo is the addition of more metadata to the frames included in datasets. Specifically, I added `video_name` and `frame_number` fields. Not all of the code in the repo has been updated to expect these fields (e.g. the `update_skeleton()` function), although all the scripts currently in use do. If you run into errors this is an avenue to explore.
+**Note:** One important change in rick's modification of the `DeepPoseKit` repo is the addition of more metadata to the frames included in datasets. Specifically, I added `video_name` and `frame_number` fields. Not all of the code in the repo has been updated to expect these fields, although all the scripts currently in use do. If you run into errors this is an avenue to explore.
 
 
 ## label
